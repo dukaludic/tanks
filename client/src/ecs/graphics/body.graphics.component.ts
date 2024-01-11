@@ -4,14 +4,14 @@ export default class BodyGraphicsComponent extends Component {
   bodyComponent: any
   color: number
 
-  constructor(bodyComponent) {
+  constructor(bodyComponent: any) {
     super()
     this.bodyComponent = bodyComponent
-    this.setRandomColor()
+    this.color = this.setRandomColor()
   }
 
   setRandomColor() {
-    this.color = randomColor()
+    return randomColor()
   }
 }
 

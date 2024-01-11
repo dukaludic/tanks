@@ -21,14 +21,12 @@ export default class GraphicsSystem extends System {
   }
 
   update() {
-    // Equivalent to show() method
     this.graphics.clear()
     for (const component of this.components) {
-      this.graphics.DRAW // implement graphics API
     }
   }
 
-  createGraphicsComponent(bodyComponent) {
+  createGraphicsComponent(bodyComponent: any) {
     let graphicsComponent = new BodyGraphicsComponent(bodyComponent)
     this.components.push(graphicsComponent)
     return graphicsComponent

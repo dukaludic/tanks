@@ -14,7 +14,7 @@ export default class ScreenEdgeBounceSystem extends System {
     this.height = config.height
   }
 
-  update() {
+  update(delta: any) {
     //TMP RADIAL COLLISION
     // for (const component of this.components) {
     //   const bodyComponent = component.bodyComponent
@@ -58,7 +58,7 @@ export default class ScreenEdgeBounceSystem extends System {
     // }
   }
 
-  createScreenEdgeBounceComponent(bodyComponent, graphicsComponent) {
+  createScreenEdgeBounceComponent(bodyComponent: any, graphicsComponent: any) {
     const component = new ScreenEdgeBounceComponent(
       bodyComponent,
       graphicsComponent,

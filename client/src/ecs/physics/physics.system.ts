@@ -6,7 +6,7 @@ export default class PhysicsSystem extends System {
     super()
   }
 
-  update(delta) {
+  update(delta: any) {
     for (const component of this.components) {
       component.velocity = component.velocity.add(
         component.acceleration.scale(delta),
@@ -17,7 +17,7 @@ export default class PhysicsSystem extends System {
     }
   }
 
-  createBodyComponent(posX, posY) {
+  createBodyComponent(posX: any, posY: any) {
     const component = new BodyComponent(posX, posY)
     this.components.push(component)
     return component

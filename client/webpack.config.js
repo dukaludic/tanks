@@ -1,11 +1,8 @@
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
+const path = require('path')
+const fileURLToPath = require('url')
+const { dirname } = require('path')
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-
-export default {
+module.exports = {
   devtool: 'cheap-source-map',
   entry: './src/index.ts',
   module: {
