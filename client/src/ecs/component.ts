@@ -3,9 +3,11 @@ export interface IComponent {
   isDeleted: boolean
 
   delete: () => void
+
+  [key: string]: string | boolean | (() => void) | Record<string, any> | any
 }
 
-export default class Component implements IComponent {
+export default class Component implements Partial<IComponent> {
   id: string
   isDeleted: boolean
 

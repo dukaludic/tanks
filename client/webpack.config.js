@@ -3,7 +3,7 @@ const fileURLToPath = require('url')
 const { dirname } = require('path')
 
 module.exports = {
-  devtool: 'cheap-source-map',
+  devtool: 'eval-source-map',
   entry: './src/index.ts',
   module: {
     rules: [

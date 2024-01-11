@@ -1,28 +1,42 @@
 import System from '../system'
+import * as PIXI from 'pixi.js'
 import BodyGraphicsComponent from './body.graphics.component'
-const config: any = {} //to import
+const config: any = {
+  height: 600,
+  width: 1200,
+} //to import
 
 export default class GraphicsSystem extends System {
   parentElement: HTMLElement
   width: number
   height: number
-  app: any // any graphics API (this could be a good dep inversion)
-  graphics: any
+  app: PIXI.Application
+  graphics: PIXI.Graphics
 
   constructor() {
     super()
-    this.parentElement = config.rootElementId
+    this.parentElement = document.getElementById('root')!
     this.width = config.width
     this.height = config.height
-    this.app = {}
-    this.parentElement.appendChild(this.app.view)
-    this.graphics = {}
+    this.app = new PIXI.Application({
+      background: '#1099bb',
+      resizeTo: window,
+    })
+    this.parentElement.appendChild(this.app.view as any)
+    this.graphics = new PIXI.Graphics()
     this.app.stage.addChild(this.graphics)
   }
 
   update() {
     this.graphics.clear()
     for (const component of this.components) {
+      this.graphics.beginFill(component.color)
+      this.graphics.drawRect(
+        component.bodyComponent.position.x,
+        component.bodyComponent.position.y,
+        100,
+        100,
+      )
     }
   }
 

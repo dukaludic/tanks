@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack-dev-server",
+    "start": "webpack-dev-server",
     "build": "webpack"
   },
   "keywords": [],
@@ -19,6 +19,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "mainloop.js": "^1.0.4"
+    "mainloop.js": "^1.0.4",
+    "pixi.js": "^7.3.3"
   }
 }

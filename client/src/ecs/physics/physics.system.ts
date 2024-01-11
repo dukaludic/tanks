@@ -8,12 +8,12 @@ export default class PhysicsSystem extends System {
 
   update(delta: any) {
     for (const component of this.components) {
-      component.velocity = component.velocity.add(
-        component.acceleration.scale(delta),
-      )
-      component.position = component.position.add(
-        component.velocity.scale(delta),
-      )
+      // component.velocity = component.velocity.add(
+      //   component.acceleration.scale(delta),
+      // )
+      // component.position = component.position.add(
+      //   component.velocity.scale(delta),
+      // )
     }
   }
 
