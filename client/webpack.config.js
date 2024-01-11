@@ -8,7 +8,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.ts/,
+        test: /\.ts$/,
         use: {
           loader: 'ts-loader',
           options: {
@@ -18,11 +18,25 @@ module.exports = {
         include: [path.join(__dirname, 'src')],
       },
       { test: /\.html$/, use: 'html-loader', exclude: /node_modules/ },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]',
+            },
+          },
+        ],
+      },
     ],
   },
   mode: 'development',
   resolve: {
     extensions: ['.ts', '.js'],
+    alias: {
+      images: path.resolve(__dirname, 'src/images'),
+    },
   },
   output: {
     filename: 'bundle.js',

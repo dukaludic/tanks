@@ -1,25 +1,27 @@
 import MainLoop from 'mainloop.js'
 import PhysicsSystem from './ecs/physics/physics.system'
-import ScreenEdgeBounceSystem from './ecs/screenEdgeBounce/screenEdgeBounce.system'
 import GraphicsSystem from './ecs/graphics/graphics.system'
 import Entity from './ecs/entity'
 import KeyboardInputSystem from './ecs/input/keyboardInput.system'
 
+// const tankSprite = new Image()
+// tankSprite.src = './images/tank.png'
+
+const tankSprite: ImageBitmap = require('./images/tank.png')
+
 let physicsSystem = new PhysicsSystem()
-let screenEdgeBounceSystem = new ScreenEdgeBounceSystem()
 let graphicsSystem = new GraphicsSystem()
 let keyboardInputSystem = new KeyboardInputSystem()
 
 createTank()
 
-MainLoop.setUpdate((delta: any) => {
+MainLoop.setUpdate((delta: number) => {
   const deltaInSecs = delta / 1000
-  physicsSystem.update(deltaInSecs)
+  physicsSystem.update()
   keyboardInputSystem.update()
-  screenEdgeBounceSystem.update(deltaInSecs)
 
   physicsSystem.deleteStaleComponents()
-  screenEdgeBounceSystem.update(deltaInSecs)
+  keyboardInputSystem.deleteStaleComponents()
 }).setDraw(() => {
   graphicsSystem.update()
   graphicsSystem.deleteStaleComponents()
@@ -32,6 +34,14 @@ function createTank() {
   const tankBodyComponent = physicsSystem.createBodyComponent(200, 200)
   const tankGraphicsComponent = graphicsSystem.createGraphicsComponent(
     tankBodyComponent,
+    tankSprite,
   )
-  tankEntity.attachComponents([tankBodyComponent, tankGraphicsComponent])
+  const keyboardInputComponent = keyboardInputSystem.createKeyboardInputComponent(
+    tankBodyComponent,
+  )
+  tankEntity.attachComponents([
+    tankBodyComponent,
+    tankGraphicsComponent,
+    keyboardInputComponent,
+  ])
 }

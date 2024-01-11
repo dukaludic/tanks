@@ -1,6 +1,8 @@
 import System from '../system'
 import * as PIXI from 'pixi.js'
 import BodyGraphicsComponent from './body.graphics.component'
+import { IComponent } from '../component'
+
 const config: any = {
   height: 600,
   width: 1200,
@@ -12,6 +14,7 @@ export default class GraphicsSystem extends System {
   height: number
   app: PIXI.Application
   graphics: PIXI.Graphics
+  components: BodyGraphicsComponent[]
 
   constructor() {
     super()
@@ -25,12 +28,15 @@ export default class GraphicsSystem extends System {
     this.parentElement.appendChild(this.app.view as any)
     this.graphics = new PIXI.Graphics()
     this.app.stage.addChild(this.graphics)
+    this.components = []
   }
 
   update() {
     this.graphics.clear()
     for (const component of this.components) {
-      this.graphics.beginFill(component.color)
+      const tank = PIXI.Texture.from(component.sprite)
+      this.app.stage.addChild(tank)
+      this.graphics.beginFill('green')
       this.graphics.drawRect(
         component.bodyComponent.position.x,
         component.bodyComponent.position.y,
@@ -40,8 +46,8 @@ export default class GraphicsSystem extends System {
     }
   }
 
-  createGraphicsComponent(bodyComponent: any) {
-    let graphicsComponent = new BodyGraphicsComponent(bodyComponent)
+  createGraphicsComponent(bodyComponent: IComponent, sprite: ImageBitmap) {
+    let graphicsComponent = new BodyGraphicsComponent(bodyComponent, sprite)
     this.components.push(graphicsComponent)
     return graphicsComponent
   }

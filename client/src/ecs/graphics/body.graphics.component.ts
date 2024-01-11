@@ -1,23 +1,12 @@
-import Component from '../component'
+import Component, { IComponent } from '../component'
 
 export default class BodyGraphicsComponent extends Component {
   bodyComponent: any
-  color: number
+  sprite: ImageBitmap
 
-  constructor(bodyComponent: any) {
+  constructor(bodyComponent: IComponent, sprite: ImageBitmap) {
     super()
     this.bodyComponent = bodyComponent
-    this.color = this.setRandomColor()
+    this.sprite = sprite
   }
-
-  setRandomColor() {
-    return randomColor()
-  }
-}
-
-function randomColor() {
-  let red = Math.floor(Math.random() * 256)
-  let green = Math.floor(Math.random() * 256)
-  let blue = Math.floor(Math.random() * 256)
-  return (red << 16) + (green << 8) + blue
 }

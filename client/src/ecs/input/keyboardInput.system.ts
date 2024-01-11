@@ -42,7 +42,7 @@ export default class KeyboardInputSystem extends System {
     for (const component of this.components) {
       let horVelocity = 0
       let verVelocity = 0
-      let velocityValue = 200
+      let velocityValue = 10
       if (this.left && !this.right) {
         horVelocity = -velocityValue
       } else if (!this.left && this.right) {
