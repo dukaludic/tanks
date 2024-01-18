@@ -28,7 +28,7 @@ MainLoop.start()
 function createTank() {
   const tankEntity = new Entity()
   const tankBodyComponent = physicsSystem.createBodyComponent(200, 200)
-  const tankDirectionGraphicsComponent = graphicsSystem.createDirectionGraphicsComponent(
+  const tankDirectionGraphicsComponent = graphicsSystem.createGraphicsComponent(
     tankBodyComponent,
     Direction.Up,
     './images/tank.png',
@@ -36,9 +36,12 @@ function createTank() {
   const keyboardInputComponent = keyboardInputSystem.createKeyboardInputComponent(
     tankBodyComponent,
   )
+
   tankEntity.attachComponents([
     tankBodyComponent,
     tankDirectionGraphicsComponent,
     keyboardInputComponent,
   ])
+
+  console.log(tankEntity, 'tankEntity')
 }

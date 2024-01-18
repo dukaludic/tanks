@@ -38,7 +38,10 @@ export default class GraphicsSystem extends System {
     this.clearStage(this.app.stage)
 
     for (const component of this.components) {
-      const tank = PIXI.Sprite.from(component.sprite)
+      const tank = PIXI.Sprite.from(component.sprite, {})
+
+      tank.pivot.set(tank.width / 2, tank.height / 2)
+      tank.angle = component.bodyComponent.direction
 
       tank.x = component.bodyComponent.position.x
       tank.y = component.bodyComponent.position.y
@@ -46,24 +49,36 @@ export default class GraphicsSystem extends System {
     }
   }
 
-  createGraphicsComponent(bodyComponent: IComponent, sprite: string) {
-    const graphicsComponent = new BodyGraphicsComponent(bodyComponent, sprite)
-    this.components.push(graphicsComponent)
-    return graphicsComponent
-  }
-
-  createDirectionGraphicsComponent(
+  // Check if this is how ECS should be used. Check if, for example direction should be separated into another component
+  createGraphicsComponent(
     bodyComponent: IComponent,
     direction: AnyDirection,
     sprite: string,
   ) {
-    const directionGraphicsComponent = new DirectionGraphicsComponent(
+    const graphicsComponent = new BodyGraphicsComponent(
       bodyComponent,
       direction,
       sprite,
     )
-    return directionGraphicsComponent
+    this.components.push(graphicsComponent)
+    return graphicsComponent
   }
+
+  // Check if this is the right was to use ECS
+
+  // createDirectionGraphicsComponent(
+  //   bodyComponent: IComponent,
+  //   direction: AnyDirection,
+  //   sprite: string,
+  // ) {
+  //   const directionGraphicsComponent = new DirectionGraphicsComponent(
+  //     bodyComponent,
+  //     direction,
+  //     sprite,
+  //   )
+  //   this.components.push(directionGraphicsComponent)
+  //   return directionGraphicsComponent
+  // }
 
   clearStage(stage: typeof this.app.stage) {
     for (var i = stage.children.length - 1; i >= 0; i--) {

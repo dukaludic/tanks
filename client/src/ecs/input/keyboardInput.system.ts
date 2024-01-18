@@ -42,15 +42,18 @@ export default class KeyboardInputSystem extends System {
     for (const component of this.components) {
       let horVelocity = 0
       let verVelocity = 0
-      let velocityValue = 10
+      let velocityValue = 5
       if (this.left && !this.right) {
+        component.bodyComponent.direction = -90
         horVelocity = -velocityValue
       } else if (!this.left && this.right) {
+        component.bodyComponent.direction = 90
         horVelocity = velocityValue
-      }
-      if (this.up && !this.down) {
+      } else if (this.up && !this.down) {
+        component.bodyComponent.direction = 0
         verVelocity = -velocityValue
       } else if (!this.up && this.down) {
+        component.bodyComponent.direction = 180
         verVelocity = velocityValue
       }
       component.bodyComponent.velocity = new Vector2(horVelocity, verVelocity)
