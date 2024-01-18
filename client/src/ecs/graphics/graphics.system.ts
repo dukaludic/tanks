@@ -2,6 +2,9 @@ import System from '../system'
 import * as PIXI from 'pixi.js'
 import BodyGraphicsComponent from './body.graphics.component'
 import { IComponent } from '../component'
+import DirectionGraphicsComponent, {
+  AnyDirection,
+} from './direction.graphics.component'
 
 const config: any = {
   height: 600,
@@ -32,23 +35,39 @@ export default class GraphicsSystem extends System {
   }
 
   update() {
-    this.graphics.clear()
+    this.clearStage(this.app.stage)
+
     for (const component of this.components) {
-      const tank = PIXI.Texture.from(component.sprite)
+      const tank = PIXI.Sprite.from(component.sprite)
+
+      tank.x = component.bodyComponent.position.x
+      tank.y = component.bodyComponent.position.y
       this.app.stage.addChild(tank)
-      this.graphics.beginFill('green')
-      this.graphics.drawRect(
-        component.bodyComponent.position.x,
-        component.bodyComponent.position.y,
-        100,
-        100,
-      )
     }
   }
 
-  createGraphicsComponent(bodyComponent: IComponent, sprite: ImageBitmap) {
-    let graphicsComponent = new BodyGraphicsComponent(bodyComponent, sprite)
+  createGraphicsComponent(bodyComponent: IComponent, sprite: string) {
+    const graphicsComponent = new BodyGraphicsComponent(bodyComponent, sprite)
     this.components.push(graphicsComponent)
     return graphicsComponent
+  }
+
+  createDirectionGraphicsComponent(
+    bodyComponent: IComponent,
+    direction: AnyDirection,
+    sprite: string,
+  ) {
+    const directionGraphicsComponent = new DirectionGraphicsComponent(
+      bodyComponent,
+      direction,
+      sprite,
+    )
+    return directionGraphicsComponent
+  }
+
+  clearStage(stage: typeof this.app.stage) {
+    for (var i = stage.children.length - 1; i >= 0; i--) {
+      stage.removeChild(stage.children[i])
+    }
   }
 }

@@ -3,11 +3,7 @@ import PhysicsSystem from './ecs/physics/physics.system'
 import GraphicsSystem from './ecs/graphics/graphics.system'
 import Entity from './ecs/entity'
 import KeyboardInputSystem from './ecs/input/keyboardInput.system'
-
-// const tankSprite = new Image()
-// tankSprite.src = './images/tank.png'
-
-const tankSprite: ImageBitmap = require('./images/tank.png')
+import { Direction } from './ecs/graphics/direction.graphics.component'
 
 let physicsSystem = new PhysicsSystem()
 let graphicsSystem = new GraphicsSystem()
@@ -32,16 +28,17 @@ MainLoop.start()
 function createTank() {
   const tankEntity = new Entity()
   const tankBodyComponent = physicsSystem.createBodyComponent(200, 200)
-  const tankGraphicsComponent = graphicsSystem.createGraphicsComponent(
+  const tankDirectionGraphicsComponent = graphicsSystem.createDirectionGraphicsComponent(
     tankBodyComponent,
-    tankSprite,
+    Direction.Up,
+    './images/tank.png',
   )
   const keyboardInputComponent = keyboardInputSystem.createKeyboardInputComponent(
     tankBodyComponent,
   )
   tankEntity.attachComponents([
     tankBodyComponent,
-    tankGraphicsComponent,
+    tankDirectionGraphicsComponent,
     keyboardInputComponent,
   ])
 }
